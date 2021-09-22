@@ -12,7 +12,10 @@ namespace pet_hotel
         public string Name {get; set;}
         public string Breed {get; set;}
         public string Color {get; set;}
+
         [ForeignKey("PetOwners")]
         public int OwnedById {get; set;}
+
+        public PetOwner OwnedBy {get; set;}
     }
 }
