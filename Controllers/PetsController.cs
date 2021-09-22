@@ -29,7 +29,7 @@ namespace pet_hotel.Controllers
 
         [HttpPost]
         public Pet PostPet(Pet pet) {
-            Console.WriteLine("the pet's owner's id is: ", pet.OwnedById);
+            Console.WriteLine("the pet's owner's id is: ", pet.OwnedBy);
             _context.Add(pet);
             _context.SaveChanges();
             return pet;
