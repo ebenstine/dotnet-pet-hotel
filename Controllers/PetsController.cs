@@ -24,16 +24,46 @@ namespace pet_hotel.Controllers
         [HttpGet]
         public IEnumerable<Pet> GetPets() {
             return _context.Pets
-                .Include(pet => pet.OwnedBy);
+                .Include(pet => pet.petOwner);
         }
 
         [HttpPost]
         public Pet PostPet(Pet pet) {
-            Console.WriteLine("the pet's owner's id is: ", pet.OwnedBy);
             _context.Add(pet);
             _context.SaveChanges();
             return pet;
         }
+
+
+        [HttpPut("{id}/checkin")]
+        public IActionResult UpdateCheckIn(int id, Pet pet) {
+            Pet requestedPet = _context.Pets.Find(id);
+            if ((requestedPet) == null) return NotFound();
+            requestedPet.isCheckedIn = true;
+            _context.Update(requestedPet);
+            _context.SaveChanges();
+            return Ok(requestedPet);
+        }
+
+        [HttpPut("{id}/checkout")]
+        public IActionResult UpdateCheckOut(int id, Pet pet) {
+            Pet requestedPet = _context.Pets.Find(id);
+            if ((requestedPet) == null) return NotFound();
+            requestedPet.isCheckedIn = false;
+            _context.Update(requestedPet);
+            _context.SaveChanges();
+            return Ok(requestedPet);        
+        }
+        // [HttpPut("{id}/sell")]
+        // public IActionResult SellById(int id) {
+        //     BreadInventory bread = _context.BreadInventory.Find(id);
+        //     if (bread == null) return NotFound();
+        //     if (bread.inventory <= 0) return BadRequest(new { error = "Cant reduce inventory below zero" });
+        //     bread.sell();
+        //     _context.Update(bread);
+        //     _context.SaveChanges();
+        //     return Ok(bread);
+        // }
 
         // [HttpGet]
         // [Route("test")]
