@@ -36,20 +36,19 @@ namespace pet_hotel.Controllers
 
 
         [HttpPut("{id}/checkin")]
-        public IActionResult UpdateCheckIn(int id, Pet pet) {
+        public IActionResult UpdateCheckIn(int id) {
             Pet requestedPet = _context.Pets.Find(id);
             if ((requestedPet) == null) return NotFound();
-            requestedPet.isCheckedIn = true;
             _context.Update(requestedPet);
             _context.SaveChanges();
             return Ok(requestedPet);
         }
 
         [HttpPut("{id}/checkout")]
-        public IActionResult UpdateCheckOut(int id, Pet pet) {
+        public IActionResult UpdateCheckOut(int id) {
             Pet requestedPet = _context.Pets.Find(id);
             if ((requestedPet) == null) return NotFound();
-            requestedPet.isCheckedIn = false;
+            requestedPet.checkedInAt = null;
             _context.Update(requestedPet);
             _context.SaveChanges();
             return Ok(requestedPet);        

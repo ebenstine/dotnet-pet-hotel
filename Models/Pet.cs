@@ -12,7 +12,9 @@ namespace pet_hotel
         public string Name {get; set;}
         public string Breed {get; set;}
         public string Color {get; set;}
-        public bool isCheckedIn {get; set;}
+
+        [Timestamp]
+        public byte[] checkedInAt { get; set; }
 
         [ForeignKey("PetOwners")]
         public int petOwnerid {get; set;}
