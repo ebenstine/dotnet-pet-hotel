@@ -13,8 +13,13 @@ namespace pet_hotel
         public string Breed {get; set;}
         public string Color {get; set;}
 
-        [Timestamp]
-        public byte[] checkedInAt { get; set; }
+        
+        public Nullable <DateTime> checkedInAt { get; set; }
+        
+        /*[Timestamp]
+        public DateTime? checkedInAt { get; set; }
+        public void checkedIn() {this.checkedInAt = DateTime.Now;}
+        public void checkedOut() {this.checkedInAt = null;}*/
 
         [ForeignKey("PetOwners")]
         public int petOwnerid {get; set;}

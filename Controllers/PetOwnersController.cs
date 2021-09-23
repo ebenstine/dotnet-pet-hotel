@@ -25,6 +25,8 @@ namespace pet_hotel.Controllers
             .SingleOrDefault(petOwner => petOwner.Id == id);
         }
 
+        
+
         [HttpGet]
         public IEnumerable<PetOwner> GetPets() {
             return _context.PetOwners;
@@ -39,11 +41,14 @@ namespace pet_hotel.Controllers
             return petOwner;
         }
 
+        
+        
         [HttpDelete("{id}")]
-        public void DeletePetOwner(int id) {
+        public IActionResult DeletePetOwner(int id) {
             PetOwner petOwner = _context.PetOwners.Find(id);
             _context.PetOwners.Remove(petOwner);
             _context.SaveChanges();
+            return NoContent();
         }
 
     }

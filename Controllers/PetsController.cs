@@ -36,12 +36,17 @@ namespace pet_hotel.Controllers
 
 
         [HttpPut("{id}/checkin")]
-        public IActionResult UpdateCheckIn(int id) {
-            Pet requestedPet = _context.Pets.Find(id);
-            if ((requestedPet) == null) return NotFound();
-            _context.Update(requestedPet);
+        public Pet Put(int id)
+        {
+            // grabbing the pet info from db
+            Pet pet = _context.Pets.Find(id);
+            // modifying the pet info (not on db yet)
+            pet.checkedInAt = DateTime.Now;
+            // update the db with new pet info and
+            // save changes to db
+            _context.Pets.Update(pet);
             _context.SaveChanges();
-            return Ok(requestedPet);
+            return pet;
         }
 
         [HttpPut("{id}/checkout")]
@@ -51,7 +56,15 @@ namespace pet_hotel.Controllers
             requestedPet.checkedInAt = null;
             _context.Update(requestedPet);
             _context.SaveChanges();
-            return Ok(requestedPet);        
+            return Ok(requestedPet);      
+        }
+
+        [HttpDelete("{id}")]
+        public IActionResult DeletePet(int id) {
+            Pet pet = _context.Pets.Find(id);
+            _context.Pets.Remove(pet);
+            _context.SaveChanges();
+            return NoContent();
         }
         // [HttpPut("{id}/sell")]
         // public IActionResult SellById(int id) {
